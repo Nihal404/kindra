@@ -1,14 +1,12 @@
-import React from "react";
-
 // --- Mock Data based on the image ---
 const topThree = [
-  { rank: 2, name: "Elena Moore", xp: "8,450 XP", title: "SILVER HERO", img: "https://i.pravatar.cc/150?img=47", color: "text-purple-600 bg-purple-50" },
-  { rank: 1, name: "Julian Thorne", xp: "12,120 XP", title: "SUPREME HERO", img: "https://i.pravatar.cc/150?img=11", color: "text-emerald-600 bg-emerald-50", isCenter: true },
-  { rank: 3, name: "Sarah Jenkins", xp: "7,920 XP", title: "BRONZE HERO", img: "https://i.pravatar.cc/150?img=5", color: "text-orange-600 bg-orange-50" }
+  { rank: 2, name: "Yuvrani", xp: "8,450 XP", title: "SILVER HERO", img: "https://i.pravatar.cc/150?img=47", color: "text-purple-600 bg-purple-50" },
+  { rank: 1, name: "Basayya", xp: "12,120 XP", title: "SUPREME HERO", img: "https://i.pravatar.cc/150?img=11", color: "text-emerald-600 bg-emerald-50", isCenter: true },
+  { rank: 3, name: "Sahana", xp: "7,920 XP", title: "BRONZE HERO", img: "https://i.pravatar.cc/150?img=5", color: "text-orange-600 bg-orange-50" }
 ];
 
 const rankings = [
-  { rank: 4, initials: "MC", name: "Marcus Chen", xp: "7,105", missions: 142, level: 38, color: "bg-purple-100 text-purple-600" },
+  { rank: 4, initials: "BBN", name: "Buss Buss Nagya", xp: "7,105", missions: 142, level: 38, color: "bg-purple-100 text-purple-600" },
   { rank: 5, img: "https://i.pravatar.cc/150?img=12", name: "David Beck", xp: "6,840", missions: 131, level: 35 },
   { rank: 6, initials: "LW", name: "Lisa Wong", xp: "6,520", missions: 128, level: 32, color: "bg-orange-100 text-orange-600" },
   { rank: 7, img: "https://i.pravatar.cc/150?img=33", name: "Chloe Vance", xp: "6,210", missions: 115, level: 31 },
@@ -35,14 +33,11 @@ export default function Leaderboard() {
           </div>
           <nav className="space-y-2">
             {/* Linked to Home Page */}
-            <a href="/" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
+            <a href="/home" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>📊</span> Dashboard
             </a>
             <a href="/missions" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>🎯</span> Missions
-            </a>
-            <a href="/upload" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
-              <span>☁️</span> Upload Proof
             </a>
             {/* Active State */}
             <a href="/leaderboard" className="flex items-center gap-3 px-4 py-3 bg-emerald-100 text-emerald-800 rounded-xl font-medium">
@@ -75,7 +70,7 @@ export default function Leaderboard() {
             <button className="text-slate-400 hover:text-slate-600">🔔</button>
             <div className="flex items-center gap-3">
               <div className="text-right">
-                <p className="font-semibold text-sm">Alex Riviera</p>
+                <p className="font-semibold text-sm">kartik bhadva</p>
                 <p className="text-xs text-slate-500">Lvl 42</p>
               </div>
               <img src="https://i.pravatar.cc/150?img=11" alt="Profile" className="w-10 h-10 rounded-full border-2 border-emerald-100" />
@@ -168,7 +163,7 @@ export default function Leaderboard() {
                   <img src="https://i.pravatar.cc/150?img=11" alt="Alex" className="w-8 h-8 rounded-full border border-emerald-200" />
                   <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></div>
                 </div>
-                <span className="font-bold text-sm text-emerald-800">Alex Riviera (You)</span>
+                <span className="font-bold text-sm text-emerald-800">kartik bhadva (You)</span>
               </div>
               <div className="col-span-2 text-right font-bold text-emerald-700">5,430</div>
               <div className="col-span-2 text-right font-bold text-emerald-700">98</div>

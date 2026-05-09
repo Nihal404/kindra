@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 const missionDatabase = [
@@ -7,7 +7,7 @@ const missionDatabase = [
     title: "Feed Street Dogs",
     category: "ANIMAL WELFARE",
     categoryColor: "bg-orange-100 text-orange-600",
-    reward: 10,
+    reward: 20,
     image: "https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=1200",
     description: "Ensure our furry community members don't go hungry. Locate stray dogs in your neighborhood and provide them with safe, dog-friendly food and clean water.",
     steps: [
@@ -16,6 +16,7 @@ const missionDatabase = [
       "Leave the food and a bowl of fresh water. Do not force interaction."
     ],
     proofRequirement: "A clear photo of the food and water bowl placed for the animal.",
+    badge: "Compassionate Heart"
   },
   {
     id: "plant-a-tree",
@@ -31,6 +32,7 @@ const missionDatabase = [
       "Water the sapling immediately after planting."
     ],
     proofRequirement: "A clear photo of the newly planted sapling in the soil.",
+    badge: "Green Thumb"
   },
   {
     id: "clean-local-park",
@@ -46,13 +48,14 @@ const missionDatabase = [
       "Dispose of the waste in official city bins."
     ],
     proofRequirement: "A photo of the collected trash bags next to an official disposal bin.",
+    badge: "Cleanliness Champion"
   },
   {
     id: "donate-books",
     title: "Donate Books",
     category: "EDUCATION",
     categoryColor: "bg-orange-100 text-orange-600",
-    reward: 10,
+    reward: 50,
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=1200",
     description: "Share the gift of knowledge with your neighborhood.",
     steps: [
@@ -61,6 +64,7 @@ const missionDatabase = [
       "Drop off the books."
     ],
     proofRequirement: "Upload a photo of the books at the donation site.",
+    badge: "Knowledge Sharer"
   }
 ];
 
@@ -72,11 +76,12 @@ export default function MissionDetail() {
   const [date, setDate] = useState("");
   const [caption, setCaption] = useState("");
   
-  // 1. We create a Reference to link to the hidden file input
-  const fileInputRef = useRef(null);
-  
-  // 2. We create State to hold the uploaded file data
   const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
+
+  // --- NEW STATE FOR VALIDATION & SUCCESS MODAL ---
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const mission = missionDatabase.find((m) => m.id === id);
 
@@ -84,21 +89,130 @@ export default function MissionDetail() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8FAF9]">
         <h2 className="text-3xl font-bold text-slate-800 mb-4">Mission not found! 🏜️</h2>
-        <Link to="/" className="text-emerald-600 font-bold hover:underline">&larr; Back to Dashboard</Link>
+        <Link to="/home" className="text-emerald-600 font-bold hover:underline">&larr; Back to Dashboard</Link>
       </div>
     );
   }
 
-  // 3. This function runs when a user selects a file from the popup
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile(file); // Saves the file so we can display its name
+      setSelectedFile(file);
     }
   };
 
+  // --- NEW FUNCTION TO SIMULATE AI VALIDATION ---
+  const handleSubmitProof = () => {
+    if (!selectedFile) {
+      alert("Please upload an image for verification first!");
+      return;
+    }
+    
+    setIsVerifying(true);
+    
+    // Simulate AI checking the image for 2 seconds
+    setTimeout(() => {
+      setIsVerifying(false);
+      setShowSuccess(true); // Pop the success modal!
+    }, 2000);
+  };
+
   return (
-    <div className="flex min-h-screen bg-[#F2F9F4] font-sans text-slate-800">
+    <div className="flex min-h-screen bg-[#F2F9F4] font-sans text-slate-800 relative">
+      
+      {/* ======================================================== */}
+      {/* SUCCESS MODAL OVERLAY (Only shows when showSuccess is true) */}
+      {/* ======================================================== */}
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/30 backdrop-blur-md transition-all">
+          <div className="bg-white rounded-[2rem] w-full max-w-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+            
+            <div className="p-10">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border-4 border-white shadow-sm">
+                  ✓
+                </div>
+                <h2 className="text-4xl font-bold text-slate-800 mb-3">Mission Complete! 🎉</h2>
+                <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-100">
+                  <span>🍃</span> {mission.title}
+                </div>
+              </div>
+
+              {/* Reward Cards */}
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="col-span-1 bg-[#F0FDF4] border border-[#DCFCE7] rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                  <span className="text-emerald-600 text-xl mb-1">☆</span>
+                  <span className="text-3xl font-black text-[#1E5631]">+{mission.reward}</span>
+                  <span className="text-[10px] font-bold text-emerald-700 tracking-widest uppercase">XP Earned</span>
+                </div>
+                
+                <div className="col-span-2 bg-[#F8FAF9] border border-slate-100 rounded-2xl p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl shrink-0">
+                    🎖️
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-slate-800">{mission.badge}</h4>
+                    <p className="text-xs text-slate-500 font-medium">New Badge Unlocked</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress & Stats Card */}
+              <div className="bg-[#F8FAF9] border border-slate-100 rounded-2xl p-6 mb-8">
+                <div className="flex justify-between text-xs font-bold text-slate-800 mb-3">
+                  <span>Weekly Goal Progress</span>
+                  <span className="text-emerald-600">150 / 200 XP</span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-2 mb-6">
+                  <div className="bg-[#1E5631] h-2 rounded-full" style={{ width: '75%' }}></div>
+                </div>
+                
+                <div className="flex justify-between items-center pt-5 border-t border-slate-200">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                    <span className="text-slate-400">📊</span> Impact: High
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                    <span className="text-slate-400">🔥</span> Streak: 8 Days
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                    <span className="text-slate-400">🏆</span> Rank: #139
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end gap-4 border-b border-slate-100 pb-8 mb-6">
+                <button 
+                  onClick={() => navigate('/missions')}
+                  className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition text-sm"
+                >
+                  Do Another Mission
+                </button>
+                <button 
+                  onClick={() => navigate('/profile')}
+                  className="px-6 py-3 rounded-xl bg-[#1E5631] text-white font-bold hover:bg-emerald-800 transition text-sm flex items-center gap-2"
+                >
+                  View Profile &rarr;
+                </button>
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-between items-center text-xs text-slate-400 font-medium px-2">
+                <span className="italic">"Every small act builds a beautiful world."</span>
+                <button className="flex items-center gap-1 hover:text-emerald-600 transition">
+                  🔗 Share your deed
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* STANDARD PAGE CONTENT (Sidebar, Main Content)            */}
+      {/* ======================================================== */}
       
       {/* LEFT SIDEBAR */}
       <aside className="w-64 bg-white flex flex-col justify-between p-6 shadow-sm z-10 border-r border-slate-100">
@@ -108,14 +222,11 @@ export default function MissionDetail() {
             <h1 className="text-xl font-bold text-emerald-900 leading-tight">Kindra<br/><span className="text-xs text-slate-500 font-normal tracking-wide">Civic Hero</span></h1>
           </div>
           <nav className="space-y-2">
-            <Link to="/" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
+            <Link to="/home" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
               <span>📊</span> Dashboard
             </Link>
             <Link to="/missions" className="flex items-center gap-3 px-4 py-3 bg-[#22C55E] text-white rounded-xl font-medium shadow-md shadow-emerald-200">
               <span>🎯</span> Missions
-            </Link>
-            <Link to="/upload" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
-              <span>☁️</span> Upload Proof
             </Link>
             <Link to="/leaderboard" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
               <span>🏆</span> Leaderboard
@@ -190,13 +301,11 @@ export default function MissionDetail() {
               </div>
             </div>
 
-            {/* ==== UPLOAD PROOF AREA ==== */}
             <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
               <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                 <span className="text-[#22C55E]">☁️</span> Upload Proof
               </h2>
 
-              {/* HIDDEN INPUT: This is what actually opens the file explorer */}
               <input 
                 type="file" 
                 ref={fileInputRef} 
@@ -205,7 +314,6 @@ export default function MissionDetail() {
                 accept="image/jpeg, image/png, image/heic"
               />
 
-              {/* VISIBLE BOX: Clicking this triggers the hidden input above */}
               <div 
                 onClick={() => fileInputRef.current.click()} 
                 className="border-2 border-dashed border-slate-200 rounded-2xl p-10 flex flex-col items-center justify-center bg-[#F9FAFB] hover:bg-slate-50 hover:border-emerald-300 transition cursor-pointer mb-6"
@@ -214,7 +322,6 @@ export default function MissionDetail() {
                   {selectedFile ? "✅" : "🖼️"}
                 </div>
                 
-                {/* Dynamically change text if a file is selected */}
                 {selectedFile ? (
                   <div className="text-center">
                     <p className="text-sm font-bold text-[#22C55E] mb-1">File Attached Successfully!</p>
@@ -228,7 +335,6 @@ export default function MissionDetail() {
                 )}
               </div>
 
-              {/* The rest of the form */}
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">Location *</label>
@@ -251,8 +357,13 @@ export default function MissionDetail() {
                 <textarea rows="3" placeholder="Add any notes about the mission..." value={caption} onChange={e=>setCaption(e.target.value)} className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-400 transition-colors resize-none"></textarea>
               </div>
 
-              <button className="w-full bg-[#22C55E] hover:bg-[#1ea34d] text-white font-bold py-3.5 rounded-xl transition shadow-sm shadow-emerald-200 flex justify-center items-center gap-2">
-                Submit Proof <span>&rarr;</span>
+              {/* --- UPDATED SUBMIT BUTTON --- */}
+              <button 
+                onClick={handleSubmitProof}
+                disabled={isVerifying}
+                className="w-full bg-[#22C55E] hover:bg-[#1ea34d] disabled:bg-emerald-300 text-white font-bold py-3.5 rounded-xl transition shadow-sm shadow-emerald-200 flex justify-center items-center gap-2"
+              >
+                {isVerifying ? "Verifying with AI..." : "Submit Proof →"}
               </button>
             </div>
           </div>
@@ -280,7 +391,7 @@ export default function MissionDetail() {
             <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
               <h3 className="font-bold text-slate-800 mb-5">Top Contributors</h3>
               <div className="space-y-5">
-                {[ { name: "Alex Mercer", count: "45 Missions", img: "https://i.pravatar.cc/150?img=12" }, { name: "Sarah Jenkins", count: "32 Missions", img: "https://i.pravatar.cc/150?img=5" }, { name: "David Chen", count: "18 Missions", img: "https://i.pravatar.cc/150?img=33" } ].map((user, idx) => (
+                {[ { name: "Alex Mercer", count: "45 Missions", img: "https://i.pravatar.cc/150?img=12" }, { name: "Sahana", count: "32 Missions", img: "https://i.pravatar.cc/150?img=5" }, { name: "David Chen", count: "18 Missions", img: "https://i.pravatar.cc/150?img=33" } ].map((user, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <img src={user.img} alt={user.name} className="w-10 h-10 rounded-full object-cover" />
                     <div>

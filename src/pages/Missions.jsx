@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const categories = ["All", "Environment", "Animals", "Humanity", "Education", "Cleanliness"];
@@ -8,7 +8,7 @@ const allMissions = [
     id: "feed-street-dogs",
     title: "Feed Street Dogs",
     category: "Animals",
-    reward: 10,
+    reward: 20,
     difficulty: "Easy",
     description: "Support local animal shelters with food and care. A small meal makes a big difference.",
     image: "https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=400",
@@ -35,7 +35,7 @@ const allMissions = [
     id: "donate-books",
     title: "Donate Books",
     category: "Education",
-    reward: 10,
+    reward: 50,
     difficulty: "Easy",
     description: "Stock the community library. Share the gift of knowledge with your neighborhood.",
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=400",
@@ -59,14 +59,11 @@ export default function Missions() {
             <h1 className="text-xl font-bold text-emerald-900 leading-tight">Kindra<br/><span className="text-xs text-slate-500 font-normal tracking-wide">Civic Hero</span></h1>
           </div>
           <nav className="space-y-2">
-            <Link to="/" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
+            <Link to="/home" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
               <span>📊</span> Dashboard
             </Link>
             <Link to="/missions" className="flex items-center gap-3 px-4 py-3 bg-[#22C55E] text-white rounded-xl font-medium shadow-md shadow-emerald-200">
               <span>🎯</span> Missions
-            </Link>
-            <Link to="/upload" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
-              <span>☁️</span> Upload Proof
             </Link>
             <Link to="/leaderboard" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition">
               <span>🏆</span> Leaderboard

@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // --- Mock Data ---
 const badges = [
@@ -23,6 +22,7 @@ const checklist = [
 ];
 
 export default function Profile() {
+  const navigate = useNavigate();
   return (
     <div className="flex min-h-screen bg-[#F8FAF9] font-sans text-slate-800">
       
@@ -34,14 +34,11 @@ export default function Profile() {
             <h1 className="text-xl font-bold text-emerald-900 leading-tight">Kindra<br/><span className="text-xs text-slate-500 font-normal tracking-wide">Civic Hero</span></h1>
           </div>
           <nav className="space-y-2">
-            <Link to="/" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
+            <Link to="/home" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>📊</span> Dashboard
             </Link>
             <Link to="/missions" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>🎯</span> Missions
-            </Link>
-            <Link to="/upload" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
-              <span>☁️</span> Upload Proof
             </Link>
             <Link to="/leaderboard" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>🏆</span> Leaderboard
@@ -106,6 +103,12 @@ export default function Profile() {
               </button>
               <button className="px-5 py-2 bg-[#1E5631] text-white rounded-full text-sm font-semibold hover:bg-emerald-800 transition">
                 Share Impact
+              </button>
+              <button 
+                onClick={() => navigate('/')} 
+                className="px-5 py-2 bg-red-500 text-white rounded-full text-sm font-semibold hover:bg-red-600 transition"
+              >
+                Logout
               </button>
             </div>
           </div>

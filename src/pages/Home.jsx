@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const missionsData = [
@@ -8,7 +8,7 @@ const missionsData = [
     category: "ANIMAL WELFARE",
     categoryColor: "text-purple-600 bg-purple-100",
     description: "Support local animal shelters with food and care.",
-    reward: 10,
+    reward: 20,
     difficulty: "Easy",
     image: "https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=400",
   },
@@ -38,14 +38,14 @@ const missionsData = [
     category: "EDUCATION",
     categoryColor: "text-orange-600 bg-orange-100",
     description: "Share the gift of knowledge with your neighborhood.",
-    reward: 10,
+    reward: 50,
     difficulty: "Easy",
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=400",
   },
 ];
 
 export default function Home() {
-  const [xp, setXp] = useState(1240);
+  const [xp] = useState(1240);
 
   return (
     <div className="flex min-h-screen bg-[#F8FAF9] font-sans text-slate-800">
@@ -58,14 +58,11 @@ export default function Home() {
             <h1 className="text-xl font-bold text-emerald-900 leading-tight">Kindra<br/><span className="text-xs text-slate-500 font-normal tracking-wide">Civic Hero</span></h1>
           </div>
           <nav className="space-y-2">
-            <Link to="/" className="flex items-center gap-3 px-4 py-3 bg-emerald-100 text-emerald-800 rounded-xl font-medium">
+            <Link to="/home" className="flex items-center gap-3 px-4 py-3 bg-emerald-100 text-emerald-800 rounded-xl font-medium">
               <span>📊</span> Dashboard
             </Link>
             <Link to="/missions" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>🎯</span> Missions
-            </Link>
-            <Link to="/upload" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
-              <span>☁️</span> Upload Proof
             </Link>
             <Link to="/leaderboard" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>🏆</span> Leaderboard
@@ -210,7 +207,7 @@ export default function Home() {
         
         <div className="space-y-4 mb-8">
           {[
-            { name: "Sarah L.", xp: "3,120 XP", img: "https://i.pravatar.cc/150?img=5", rank: 1 },
+            { name: "GOURIPRIYA", xp: "3,120 XP", img: "https://i.pravatar.cc/150?img=5", rank: 1 },
             { name: "Marcus T.", xp: "2,840 XP", img: "https://i.pravatar.cc/150?img=8", rank: 2 },
             { name: "Priya K.", xp: "2,410 XP", img: "https://i.pravatar.cc/150?img=9", rank: 3 },
           ].map((user, idx) => (
