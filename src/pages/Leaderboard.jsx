@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 // --- Mock Data based on the image ---
 const topThree = [
   { rank: 2, name: "Yuvrani", xp: "8,450 XP", title: "SILVER HERO", img: "https://i.pravatar.cc/150?img=47", color: "text-purple-600 bg-purple-50" },
@@ -40,12 +42,12 @@ export default function Leaderboard() {
               <span>🎯</span> Missions
             </a>
             {/* Active State */}
-            <a href="/leaderboard" className="flex items-center gap-3 px-4 py-3 bg-emerald-100 text-emerald-800 rounded-xl font-medium">
+            <Link to="/leaderboard" className="flex items-center gap-3 px-4 py-3 bg-emerald-100 text-emerald-800 rounded-xl font-medium">
               <span>🏆</span> Leaderboard
-            </a>
-            <a href="/profile" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
+            </Link>
+            <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 rounded-xl font-medium transition">
               <span>👤</span> Profile
-            </a>
+            </Link>
           </nav>
         </div>
         <button className="w-full bg-[#1E5631] text-white py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-emerald-800 transition">
